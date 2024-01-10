@@ -79,10 +79,10 @@ RUN \
     chmod +x /usr/local/lib/docker/cli-plugins/docker-compose && \
     # go
     wget -qO go.tar.gz "https://go.dev/dl/go${go}.linux-amd64.tar.gz" && \
-    tar -qC /usr/local -xzf go.tar.gz && \
+    tar -C /usr/local -xzf go.tar.gz && \
     export PATH=${PATH}:/usr/local/go/bin && \
     rm -rf go.tar.gz && \
     # act
-    curl -qs https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
+    curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
     # press-ready
     yarn global add press-ready
