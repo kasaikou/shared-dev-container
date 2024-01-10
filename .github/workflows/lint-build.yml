@@ -3,8 +3,10 @@ on:
     paths:
       - .github/workflows/lint-build.yml
       - dockerfile
+env:
+  CONTAINER_REPOSITORY: ghcr.io/kasaikou/shared-dev-container
 jobs:
-  lint-build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -12,9 +14,25 @@ jobs:
         with:
           dockerfile: dockerfile
           failure-threshold: error
+  build:
+    needs: [lint]
+    strategy:
+      matrix:
+        base:
+          - ubuntu:22.04
+          - nvidia/cuda:11.8.0-devel-ubuntu22.04
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: docker/create-tag
+        env:
+          REPOSITORY: ${{ matrix.base }}
+        run: |
+          export REPO_TAG=${REPOSITORY##*/}
+          echo "BASE_REPOTAG=${REPO_TAG/:/}" >> $GITHUB_ENV
       - name: docker/build
         run: >
           docker build .
-          --build-arg baseimage=ubuntu:22.04
+          --build-arg baseimage=${{ matrix.base }}
           --build-arg apt-mirror=azure.archive.ubuntu.com/ubuntu
-          -t ghcr.io/kasaikou/shared-dev-container:latest
+          -t ${{ env.CONTAINER_REPOSITORY }}:latest-${{ env.BASE_REPOTAG }}
