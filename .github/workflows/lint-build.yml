@@ -12,3 +12,6 @@ jobs:
         with:
           dockerfile: dockerfile
           failure-threshold: error
+      - name: docker/build
+        with: >
+          docker build .
