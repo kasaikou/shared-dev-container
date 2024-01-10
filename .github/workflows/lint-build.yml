@@ -21,6 +21,9 @@ jobs:
         base:
           - ubuntu:22.04
           - nvidia/cuda:11.8.0-devel-ubuntu22.04
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -36,3 +39,11 @@ jobs:
           --build-arg baseimage=${{ matrix.base }}
           --build-arg apt-mirror=azure.archive.ubuntu.com/ubuntu
           -t ${{ env.CONTAINER_REPOSITORY }}:latest-${{ env.BASE_REPOTAG }}
+      - name: docker/login
+        run: >
+          docker login ghcr.io
+          --username kasaikou
+          --password ${{ secrets.GITHUB_TOKEN }}
+      - name: docker/push
+        run: |
+          docker push ${{ env.CONTAINER_REPOSITORY }}:latest-${{ env.BASE_REPOTAG }}
