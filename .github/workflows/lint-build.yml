@@ -3,8 +3,8 @@ on:
     paths:
       - .github/workflows/lint-build.yml
       - dockerfile
-    # branches:
-    #   - main
+    branches:
+      - main
 env:
   CONTAINER_REPOSITORY: ghcr.io/kasaikou/shared-dev-container
 jobs:
