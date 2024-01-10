@@ -13,5 +13,8 @@ jobs:
           dockerfile: dockerfile
           failure-threshold: error
       - name: docker/build
-        with: >
+        run: >
           docker build .
+          --build-arg baseimage=ubuntu:22.04
+          --build-arg apt-mirror=azure.archive.ubuntu.com/ubuntu
+          -t ghcr.io/kasaikou/shared-dev-container:latest
