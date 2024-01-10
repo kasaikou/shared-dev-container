@@ -38,7 +38,7 @@ RUN \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | \
     tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
     # terraform
-    wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
+    wget -qO- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
     tee /etc/apt/sources.list.d/hashicorp.list
 
@@ -65,8 +65,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxfixes3 \
     libxkbcommon0 \
     libxrandr2 \
+    nodejs \
     poppler-utils \
-    terraform
+    terraform \
+    yarn
 
 ARG go=1.21.3
 
@@ -76,11 +78,11 @@ RUN \
     curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o /usr/local/lib/docker/cli-plugins/docker-compose && \
     chmod +x /usr/local/lib/docker/cli-plugins/docker-compose && \
     # go
-    wget -O go.tar.gz "https://go.dev/dl/go${go}.linux-amd64.tar.gz" && \
-    tar -C /usr/local -xzf go.tar.gz && \
+    wget -qO go.tar.gz "https://go.dev/dl/go${go}.linux-amd64.tar.gz" && \
+    tar -qC /usr/local -xzf go.tar.gz && \
     export PATH=${PATH}:/usr/local/go/bin && \
     rm -rf go.tar.gz && \
     # act
-    curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
+    curl -qs https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
     # press-ready
     yarn global add press-ready
