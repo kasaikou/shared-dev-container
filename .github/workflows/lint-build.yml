@@ -35,6 +35,9 @@ jobs:
         run: |
           export REPO_TAG=${REPOSITORY##*/}
           echo "BASE_REPOTAG=${REPO_TAG/:/}" >> $GITHUB_ENV
+      - name: docker/pull
+        run: >
+          docker pull ${{ env.CONTAINER_REPOSITORY }}:latest-${{ env.BASE_REPOTAG }}
       - name: docker/build
         run: >
           docker build .
