@@ -1,0 +1,14 @@
+on:
+  push:
+    paths:
+      - .github/workflows/lint-build.yml
+      - dockerfile
+jobs:
+  lint-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hadolint/hadolint-action@v2.1.0
+        with:
+          dockerfile: dockerfile
+          failure-threshold: error
