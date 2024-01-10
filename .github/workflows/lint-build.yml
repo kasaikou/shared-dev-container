@@ -1,0 +1,49 @@
+on:
+  push:
+    paths:
+      - .github/workflows/lint-build.yml
+      - dockerfile
+env:
+  CONTAINER_REPOSITORY: ghcr.io/kasaikou/shared-dev-container
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hadolint/hadolint-action@v2.1.0
+        with:
+          dockerfile: dockerfile
+          failure-threshold: error
+  build:
+    needs: [lint]
+    strategy:
+      matrix:
+        base:
+          - ubuntu:22.04
+          - nvidia/cuda:11.8.0-devel-ubuntu22.04
+    permissions:
+      contents: read
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: docker/create-tag
+        env:
+          REPOSITORY: ${{ matrix.base }}
+        run: |
+          export REPO_TAG=${REPOSITORY##*/}
+          echo "BASE_REPOTAG=${REPO_TAG/:/}" >> $GITHUB_ENV
+      - name: docker/build
+        run: >
+          docker build .
+          --build-arg baseimage=${{ matrix.base }}
+          --build-arg apt-mirror=azure.archive.ubuntu.com/ubuntu
+          -t ${{ env.CONTAINER_REPOSITORY }}:latest-${{ env.BASE_REPOTAG }}
+      - name: docker/login
+        run: >
+          docker login ghcr.io
+          --username kasaikou
+          --password ${{ secrets.GITHUB_TOKEN }}
+      - name: docker/push
+        run: |
+          docker push ${{ env.CONTAINER_REPOSITORY }}:latest-${{ env.BASE_REPOTAG }}
