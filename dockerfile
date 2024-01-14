@@ -86,3 +86,5 @@ RUN \
     curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
     # press-ready
     yarn global add press-ready
+
+ENV PATH=${PATH}:/usr/local/go/bin
