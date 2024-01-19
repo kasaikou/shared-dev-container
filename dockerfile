@@ -66,10 +66,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxkbcommon0 \
     libxrandr2 \
     nodejs \
+    pinentry-qt \
     poppler-utils \
     terraform \
-    yarn \
-    x11-apps
+    x11-apps \
+    yarn
 
 ARG go=1.21.3
 
