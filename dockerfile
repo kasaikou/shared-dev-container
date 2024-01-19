@@ -68,7 +68,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nodejs \
     poppler-utils \
     terraform \
-    yarn
+    yarn \
+    x11-apps
 
 ARG go=1.21.3
 
