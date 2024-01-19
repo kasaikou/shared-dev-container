@@ -35,20 +35,15 @@ jobs:
         run: |
           export REPO_TAG=${REPOSITORY##*/}
           echo "BASE_REPOTAG=${REPO_TAG/:/}" >> $GITHUB_ENV
-      - name: docker/pull
-        run: >
-          docker pull ${{ env.CONTAINER_REPOSITORY }}:latest-${{ env.BASE_REPOTAG }}
-      - name: docker/build
-        run: >
-          docker build .
-          --build-arg baseimage=${{ matrix.base }}
-          --build-arg apt-mirror=azure.archive.ubuntu.com/ubuntu
-          -t ${{ env.CONTAINER_REPOSITORY }}:latest-${{ env.BASE_REPOTAG }}
       - name: docker/login
         run: >
           docker login ghcr.io
           --username kasaikou
           --password ${{ secrets.GITHUB_TOKEN }}
-      - name: docker/push
-        run: |
-          docker push ${{ env.CONTAINER_REPOSITORY }}:latest-${{ env.BASE_REPOTAG }}
+      - uses: docker/build-push-action@v5
+        with:
+          push: true
+          context: .
+          tags: ${{ env.CONTAINER_REPOSITORY }}:latest-${{ env.BASE_REPOTAG }}
+          cache-from: type=gha
+          cache-to: type=gha
