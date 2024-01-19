@@ -57,10 +57,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcups2 \
     libdrm2 \
     libgbm1 \
+    libgl1-mesa-dev \
     libglib2.0-0 \
     libnss3 \
     libpango-1.0-0 \
+    libx11-dev \
     libxcomposite1 \
+    libxcursor-dev \
     libxdamage1 \
     libxfixes3 \
     libxkbcommon0 \
@@ -70,6 +73,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     poppler-utils \
     terraform \
     x11-apps \
+    xorg-dev \
     yarn
 
 ARG go=1.21.3
