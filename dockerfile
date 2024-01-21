@@ -90,7 +90,7 @@ RUN \
     tar -C /usr/local -xzf go.tar.gz && \
     export PATH=${PATH}:/usr/local/go/bin && \
     rm -rf go.tar.gz && \
-    go env -w GOBIN=/usr/local/bin && \
+    export GOBIN=/usr/local/bin && \
     # protocol buffers
     curl -OL https://github.com/google/protobuf/releases/download/v${protobuf}/protoc-${protobuf}-linux-x86_64.zip && \
     unzip protoc-${protobuf}-linux-x86_64.zip -d protobuf && \
@@ -98,6 +98,7 @@ RUN \
     mv protobuf/include/* /usr/local/include/ && \
     go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28 && \
     go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2 && \
+    go install github.com/go-task/task/v3/cmd/task@latest && \
     # act
     curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
     # press-ready
