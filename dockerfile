@@ -45,6 +45,7 @@ RUN \
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    clang-format \
     docker-ce-cli \
     fish \
     fonts-ipaexfont-mincho \
@@ -77,6 +78,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     yarn
 
 ARG go=1.21.3
+ARG protobuf=25.2
 
 RUN \
     # docker compose
@@ -88,6 +90,11 @@ RUN \
     tar -C /usr/local -xzf go.tar.gz && \
     export PATH=${PATH}:/usr/local/go/bin && \
     rm -rf go.tar.gz && \
+    # protocol buffers
+    curl -OL https://github.com/google/protobuf/releases/download/v${protobuf}/protoc-${protobuf}-linux-x86_64.zip && \
+    unzip protoc-3.5.1-linux-x86_64.zip -d protoc && \
+    mv protoc/bin/* /usr/local/bin/ && \
+    mv protoc/include/* /usr/local/include/ && \
     # act
     curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
     # press-ready
