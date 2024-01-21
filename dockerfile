@@ -92,9 +92,9 @@ RUN \
     rm -rf go.tar.gz && \
     # protocol buffers
     curl -OL https://github.com/google/protobuf/releases/download/v${protobuf}/protoc-${protobuf}-linux-x86_64.zip && \
-    unzip protoc-3.5.1-linux-x86_64.zip -d protoc && \
-    mv protoc/bin/* /usr/local/bin/ && \
-    mv protoc/include/* /usr/local/include/ && \
+    unzip protoc-${protobuf}-linux-x86_64.zip -d protobuf && \
+    mv protobuf/bin/* /usr/local/bin/ && \
+    mv protobuf/include/* /usr/local/include/ && \
     # act
     curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
     # press-ready
