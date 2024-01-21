@@ -72,6 +72,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nodejs \
     pinentry-qt \
     poppler-utils \
+    python3-distutils \
     terraform \
     x11-apps \
     xorg-dev \
