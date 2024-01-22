@@ -49,7 +49,8 @@ RUN \
     tee /etc/apt/sources.list.d/google-chrome.list && \
     curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/googlechrom-keyring.gpg
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN export DEBIAN_FRONTEND=nointeractive \
+    apt-get update && apt-get install -y --no-install-recommends \
     autoconf \
     automake \
     build-essential \
