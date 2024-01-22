@@ -95,7 +95,7 @@ RUN export DEBIAN_FRONTEND=nointeractive && \
     pinentry-qt \
     poppler-utils \
     python3-dev \
-    python3-poetry \
+    python3-distutils \
     terraform \
     unityhub \
     x11-apps \
