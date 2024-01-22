@@ -50,6 +50,8 @@ RUN \
     curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/googlechrom-keyring.gpg
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    autoconf \
+    automake \
     build-essential \
     chromium-browser \
     chromium-browser-l10n \
@@ -62,7 +64,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gh \
     ghostscript \
     gir1.2-gtk-4.0 \
+    gobject-introspection \
     google-chrome-stable \
+    gtk-doc-tools \
     libasound2 \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
@@ -71,11 +75,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcups2 \
     libdrm2 \
     libgbm1 \
-    libgl1-mesa-dev \
     libgirepository1.0-dev \
+    libgl1-mesa-dev \
+    libgladeui-dev \
     libglib2.0-0 \
     libnss3 \
     libpango-1.0-0 \
+    libtool \
     libx11-dev \
     libxcomposite1 \
     libxcursor-dev \
