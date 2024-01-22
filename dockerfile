@@ -47,6 +47,9 @@ RUN \
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    chromium-browser \
+    chromium-browser-l10n \
+    chromium-coedcs-ffmpeg \
     clang-format \
     docker-ce-cli \
     fish \
