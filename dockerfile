@@ -41,9 +41,13 @@ RUN \
     wget -qO- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
     tee /etc/apt/sources.list.d/hashicorp.list && \
-    # monodevelop
+    # unity
     wget -qO - https://hub.unity3d.com/linux/keys/public | gpg --dearmor | tee /usr/share/keyrings/Unity_Technologies_ApS.gpg > /dev/null && \
-    sh -c 'echo "deb [signed-by=/usr/share/keyrings/Unity_Technologies_ApS.gpg] https://hub.unity3d.com/linux/repos/deb stable main" > /etc/apt/sources.list.d/unityhub.list'
+    sh -c 'echo "deb [signed-by=/usr/share/keyrings/Unity_Technologies_ApS.gpg] https://hub.unity3d.com/linux/repos/deb stable main" > /etc/apt/sources.list.d/unityhub.list' && \
+    # google chrome
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/googlechrom-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | 
+    tee /etc/apt/sources.list.d/google-chrome.list && \
+    curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/googlechrom-keyring.gpg
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -56,6 +60,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-ipaexfont-mincho \
     gh \
     ghostscript \
+    google-chrome-stable \
     libasound2 \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
