@@ -58,17 +58,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     docker-ce-cli \
     fish \
     fonts-ipaexfont-mincho \
+    gcc \
     gh \
     ghostscript \
+    gir1.2-gtk-4.0 \
     google-chrome-stable \
     libasound2 \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
     libcairo2 \
+    libcairo2-dev \
     libcups2 \
     libdrm2 \
     libgbm1 \
     libgl1-mesa-dev \
+    libgirepository1.0-dev \
     libglib2.0-0 \
     libnss3 \
     libpango-1.0-0 \
@@ -80,9 +84,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxkbcommon0 \
     libxrandr2 \
     nodejs \
+    pkg-config \
     pinentry-qt \
     poppler-utils \
-    python3-distutils \
+    python3-dev \
+    python3-poetry \
     terraform \
     unityhub \
     x11-apps \
