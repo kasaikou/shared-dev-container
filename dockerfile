@@ -16,8 +16,6 @@ RUN sed -i "s@archive.ubuntu.com@${apt_mirror}@g" /etc/apt/sources.list && \
     wget
 
 RUN \
-    # fish
-    apt-add-repository ppa:fish-shell/release-3 && \
     # docker
     install -m 0755 -d /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
@@ -59,7 +57,6 @@ RUN export DEBIAN_FRONTEND=nointeractive && \
     chromium-codecs-ffmpeg \
     clang-format \
     docker-ce-cli \
-    fish \
     fonts-ipaexfont-mincho \
     gcc \
     gh \
@@ -124,6 +121,7 @@ RUN \
     go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28 && \
     go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2 && \
     go install github.com/go-task/task/v3/cmd/task@latest && \
+    go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest && \
     # act
     curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
     # press-ready
