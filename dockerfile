@@ -50,6 +50,7 @@ RUN export DEBIAN_FRONTEND=nointeractive && \
     chromium-codecs-ffmpeg \
     clang-format \
     docker-ce-cli \
+    file \
     fonts-ipaexfont-mincho \
     gcc \
     gh \
@@ -61,6 +62,7 @@ RUN export DEBIAN_FRONTEND=nointeractive && \
     libasound2 \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
+    libayatana-appindicator3-dev \
     libcairo2 \
     libcairo2-dev \
     libcups2 \
@@ -70,8 +72,11 @@ RUN export DEBIAN_FRONTEND=nointeractive && \
     libgl1-mesa-dev \
     libgladeui-dev \
     libglib2.0-0 \
+    libgtk-3-dev \
     libnss3 \
     libpango-1.0-0 \
+    librsvg2-dev \
+    libssl-dev \
     libtool \
     libx11-dev \
     libxcomposite1 \
@@ -132,6 +137,8 @@ USER ${user}
 RUN \
     # poetry
     curl -sSL https://install.python-poetry.org | python3 - --version 1.6.1 && \
+    # rust
+    curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh && \
     # homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
     export PATH=/home/linuxbrew/.linuxbrew/bin:${PATH} && \
