@@ -138,7 +138,7 @@ RUN \
     # poetry
     curl -sSL https://install.python-poetry.org | python3 - --version 1.6.1 && \
     # rust
-    curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -- -y && \
+    curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y && \
     # homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
     export PATH=/home/linuxbrew/.linuxbrew/bin:${PATH} && \
