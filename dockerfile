@@ -145,3 +145,5 @@ RUN \
     curl -sSL https://install.python-poetry.org | python3 - --version 1.6.1 && \
     # homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+ENV PATH=${PATH}:/home/linuxbrew/.linuxbrew/bin
