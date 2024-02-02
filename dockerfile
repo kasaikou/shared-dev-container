@@ -144,7 +144,7 @@ RUN \
     nodenv rehash && \
     export PATH=/home/${user}/.nodenv/shims:${PATH} && \
     # press-ready
-    yarn add --global press-ready
+    yarn global add press-ready
 
 
 ENV PATH=/home/linuxbrew/.linuxbrew/bin:${PATH}
