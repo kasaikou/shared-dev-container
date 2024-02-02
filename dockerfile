@@ -23,13 +23,6 @@ RUN \
     echo deb "[arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
     "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
     tee /etc/apt/sources.list.d/docker.list > /dev/null && \
-    # node/yarn
-    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
-    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | \
-    tee /etc/apt/sources.list.d/nodesource.list > /dev/null && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | \
-    tee /etc/apt/sources.list.d/yarn.list && \
     # gh
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
     chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && \
@@ -87,7 +80,6 @@ RUN export DEBIAN_FRONTEND=nointeractive && \
     libxfixes3 \
     libxkbcommon0 \
     libxrandr2 \
-    nodejs \
     pkg-config \
     pinentry-qt \
     poppler-utils \
@@ -96,8 +88,7 @@ RUN export DEBIAN_FRONTEND=nointeractive && \
     terraform \
     unityhub \
     x11-apps \
-    xorg-dev \
-    yarn
+    xorg-dev
 
 ARG go=1.21.3
 ARG protobuf=25.2
@@ -123,9 +114,7 @@ RUN \
     go install github.com/go-task/task/v3/cmd/task@latest && \
     go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest && \
     # act
-    curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
-    # press-ready
-    yarn global add press-ready
+    curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | bash
 
 ENV PATH=${PATH}:/usr/local/go/bin
 
@@ -144,6 +133,18 @@ RUN \
     # poetry
     curl -sSL https://install.python-poetry.org | python3 - --version 1.6.1 && \
     # homebrew
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
+    export PATH=/home/linuxbrew/.linuxbrew/bin:${PATH} && \
+    # nodenv and yarn
+    brew install nodenv && \
+    mkdir -p "$(nodenv root)/plugins" && \
+    git clone https://github.com/pine/nodenv-yarn-install.git "$(nodenv root)/plugins/nodenv-yarn-install" && \
+    nodenv install 18.19.0 && \
+    nodenv global 18.19.0 && \
+    nodenv rehash && \
+    export PATH=/home/${user}/.nodenv/shims:${PATH} && \
+    # press-ready
+    yarn add --global press-ready
 
-ENV PATH=${PATH}:/home/linuxbrew/.linuxbrew/bin
+
+ENV PATH=/home/linuxbrew/.linuxbrew/bin:${PATH}
