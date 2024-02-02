@@ -122,6 +122,8 @@ RUN \
     go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2 && \
     go install github.com/go-task/task/v3/cmd/task@latest && \
     go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest && \
+    # homebrew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
     # act
     curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
     # press-ready
