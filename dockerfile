@@ -122,11 +122,26 @@ RUN \
     go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2 && \
     go install github.com/go-task/task/v3/cmd/task@latest && \
     go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest && \
-    # homebrew
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
     # act
     curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | bash && \
     # press-ready
     yarn global add press-ready
 
 ENV PATH=${PATH}:/usr/local/go/bin
+
+ARG user=container
+ARG uid=1000
+ARG gid=1000
+
+RUN groupadd --gid ${gid} ${user} && \
+    useradd -s /bin/bash --uid ${uid} --gid ${gid} -m ${user} && \
+    echo ${user} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${user} && \
+    chmod 0440 /etc/sudoers.d/${user}
+
+USER ${user}
+
+RUN \
+    # poetry
+    curl -sSL https://install.python-poetry.org | python3 - --version 1.6.1 && \
+    # homebrew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
