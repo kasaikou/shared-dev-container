@@ -58,6 +58,7 @@ RUN export DEBIAN_FRONTEND=nointeractive && \
     gir1.2-gtk-4.0 \
     gobject-introspection \
     google-chrome-stable \
+    gdk-pixbuf-2.0-dev \
     gtk-doc-tools \
     libasound2 \
     libatk1.0-0 \
@@ -76,6 +77,7 @@ RUN export DEBIAN_FRONTEND=nointeractive && \
     libnss3 \
     libpango-1.0-0 \
     librsvg2-dev \
+    librust-atk-dev \
     libsoup2.4-dev \
     libssl-dev \
     libtool \
@@ -156,4 +158,4 @@ RUN \
     yarn global add press-ready
 
 
-ENV PATH=/home/linuxbrew/.linuxbrew/bin:${PATH}
+ENV PATH=${PATH}:/home/linuxbrew/.linuxbrew/bin
