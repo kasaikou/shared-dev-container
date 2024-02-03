@@ -76,8 +76,10 @@ RUN export DEBIAN_FRONTEND=nointeractive && \
     libnss3 \
     libpango-1.0-0 \
     librsvg2-dev \
+    libsoup2.4-dev \
     libssl-dev \
     libtool \
+    libwebkit2gtk-4.0-dev \
     libx11-dev \
     libxcomposite1 \
     libxcursor-dev \
